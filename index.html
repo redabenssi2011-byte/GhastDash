@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghast Bot | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0b14 100%);
+            color: #fff;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            padding-top: 70px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 105, 180, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 105, 180, 0.3);
+            z-index: 100;
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-links a:hover {
+            color: #ff69b4;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 1rem 2rem 3rem;
+            z-index: 2;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #ff69b4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 0.8rem;
+            letter-spacing: -0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .description-card {
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 24px;
+            padding: 1rem 1.8rem;
+            max-width: 650px;
+            margin: 1.2rem auto;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .description i {
+            color: #ff69b4;
+        }
+
+        .feature-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.7rem;
+        }
+
+        .feature-badges span {
+            background: rgba(255, 105, 180, 0.15);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #ff99cc;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-try {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.25);
+            border: none;
+            cursor: pointer;
+            margin-bottom: 2.2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-try:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.35);
+            background: linear-gradient(135deg, #ff77bc, #ff2288);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.3rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 25, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            border-radius: 20px;
+            padding: 1.3rem;
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: #ff69b4;
+            transform: translateY(-3px);
+            background: rgba(25, 20, 35, 0.9);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            color: #ff69b4;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .feature-card p {
+            font-size: 0.8rem;
+            color: #aaa;
+            line-height: 1.5;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 105, 180, 0.2);
+            padding-top: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @media (max-width: 700px) {
+            .nav-container { justify-content: center; }
+            body { padding-top: 70px; }
+            h1 { font-size: 2rem; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="support.html">Support</a>
+                <a href="about.html">About</a>
+                <a href="#" id="discordLink">Discord</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="logo">
+            <img src="https://timg.eu.cc/wXYxDx9tm7.png" alt="Ghast Bot Avatar">
+        </div>
+
+        <h1>GHAST BOT</h1>
+
+        <div class="description-card">
+            <div class="description">
+                <i class="fas fa-skull"></i> The ultimate Discord guardian · 
+                <i class="fas fa-shield-haltered"></i> Auto-mod · 
+                <i class="fas fa-chart-line"></i> Leveling · 
+                <i class="fas fa-music"></i> High-quality music
+            </div>
+            <div class="feature-badges">
+                <span><i class="fas fa-bolt"></i> 99.9% Uptime</span>
+                <span><i class="fas fa-globe"></i> 50K+ Servers</span>
+                <span><i class="fas fa-code"></i> API Ready</span>
+            </div>
+        </div>
+
+        <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=identify%20guilds" class="btn-try">
+            <i class="fab fa-discord"></i> Try for free
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                <h3>Welcome</h3>
+                <p>Customizable welcome images & messages with roles.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-ticket-alt"></i></div>
+                <h3>Ticket</h3>
+                <p>Advanced ticket system with transcripts & logs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-terminal"></i></div>
+                <h3>Command System</h3>
+                <p>200+ slash & prefix commands, fully customizable.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gavel"></i></div>
+                <h3>Rules Management</h3>
+                <p>Auto-enforce rules with strike & punishment system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+                <h3>Server Statistiques</h3>
+                <p>Live server insights, member growth & activity charts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Member Manager</h3>
+                <p>Mass roles, timeout, kick, ban & voice move tools.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-pen-ruler"></i></div>
+                <h3>Channels Editor</h3>
+                <p>Create, rename, lock, slowmode & clone channels.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-qran"></i><i class="fas fa-music"></i></div>
+                <h3>Quran & Music</h3>
+                <p>Holy Quran recitation + 24/7 high-quality music.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-scroll"></i></div>
+                <h3>Logs System</h3>
+                <p>Full moderation, message edit/delete & voice logs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-ellipsis-h"></i></div>
+                <h3>And more</h3>
+                <p>Giveaways, economy, AI chat, auto-publish & level rewards.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            HooxCompany™ • No CopyRight ©
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('discordLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://discord.gg/YOUR_SERVER_INVITE';
+        });
+    </script>
+</body>
+</html>
